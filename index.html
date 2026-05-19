@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controle de Mercado Pro</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- jsPDF para gerar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛒 Controle de Mercado Pro</h1>
+      <p>Gerencie suas compras e consumo com inteligência.</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat-card">
+        <h3>Total de Itens</h3>
+        <p id="total-itens">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Próxima Compra</h3>
+        <p id="total-proxima">0</p>
+      </div>
+    </section>
+
+    <main>
+      <!-- Abas -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="cadastro">Cadastro</button>
+        <button class="tab-btn" data-tab="estoque">Estoque Atual</button>
+        <button class="tab-btn" data-tab="proxima">Próxima Compra</button>
+      </div>
+
+      <!-- Aba: Cadastro -->
+      <div id="cadastro" class="tab-content active">
+        <form id="form-mercadoria">
+          <h2>Cadastrar Mercadoria</h2>
+          <input type="text" id="nome" placeholder="Nome do produto" required />
+          <input type="text" id="marca" placeholder="Marca" required />
+          <select id="categoria" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="Higiene">Higiene</option>
+            <option value="Limpeza">Limpeza</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <div class="inline-fields">
+            <input type="number" id="quantidade" placeholder="Quantidade" min="1" required />
+            <select id="unidade" required>
+              <option value="un">Un</option>
+              <option value="kg">Kg</option>
+              <option value="g">g</option>
+              <option value="l">L</option>
+              <option value="ml">ml</option>
+              <option value="cx">Cx</option>
+              <option value="pt">Pct</option>
+            </select>
+          </div>
+          <input type="date" id="data-compra" required />
+          <input type="number" id="limite-minimo" placeholder="Limite mínimo (ex: 1)" min="1" value="1" />
+          <textarea id="observacoes" placeholder="Observações (opcional)"></textarea>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </div>
+
+      <!-- Aba: Estoque Atual -->
+      <div id="estoque" class="tab-content">
+        <h2>Estoque Atual</h2>
+        <div class="filters">
+          <input type="text" id="filtro-nome" placeholder="Buscar por nome" />
+          <select id="filtro-categoria">
+            <option value="">Todas as categorias</option>
+            <option value="Higiene">Higiene</option>
+            <option value="Limpeza">Limpeza</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <select id="filtro-marca">
+            <option value="">Todas as marcas</option>
+          </select>
+        </div>
+        <div id="lista-estoque" class="product-list"></div>
+      </div>
+
+      <!-- Aba: Próxima Compra -->
+      <div id="proxima" class="tab-content">
+        <h2>Lista de Próxima Compra</h2>
+        <button id="btn-gerar-pdf" class="btn-pdf">Gerar PDF da Lista</button>
+        <div id="lista-proxima" class="product-list"></div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Controle de Mercado Pro | Dados salvos localmente no navegador</p>
+      <button id="btn-backup" title="Exportar/Importar dados">💾 Backup</button>
+    </footer>
+  </div>
+
+  <!-- Modal de Backup -->
+  <div id="modal-backup" class="modal">
+    <div class="modal-content">
+      <h3>Backup de Dados</h3>
+      <p>Exporte ou importe seus dados em formato JSON.</p>
+      <button id="btn-exportar">Exportar Dados</button>
+      <input type="file" id="input-importar" accept=".json" />
+      <button id="btn-fechar-modal">Fechar</button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
